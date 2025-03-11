@@ -22,11 +22,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: <Widget>[
             Row(
               children: [
-                Container(
-                  height: 100.0,
-                  child: Image.asset(
-                    'images/logo.png',
-                    fit: BoxFit.fitHeight,
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 100.0,
+                    child: Image.asset(
+                      'images/logo.png',
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
                 ),
                 Text(
