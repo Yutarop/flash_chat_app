@@ -11,7 +11,7 @@ class ReusableButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
+      padding: EdgeInsets.only(top: 16.0),
       child: Material(
         color: buttonColor,
         borderRadius: BorderRadius.circular(30.0),
