@@ -41,12 +41,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Hero(
                         tag: 'logo',
                         child: Container(
-                          height: 200.0,
-                          child: Image.asset('images/logo.png'),
+                          height: 250.0,
+                          child: Image.asset('images/logo2.png'),
                         ),
                       ),
                       SizedBox(
-                        height: 48.0,
+                        height: 0.0,
                       ),
                       TextField(
                         keyboardType: TextInputType.emailAddress,
