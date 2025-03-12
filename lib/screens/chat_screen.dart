@@ -164,7 +164,7 @@ class MessageBubble extends StatelessWidget {
       child: Column(
         crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text(
+          isMe ? SizedBox() : Text(
             sender,
             style: TextStyle(
               fontSize: 12.0,
