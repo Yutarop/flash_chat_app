@@ -77,7 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
               ],
             ),
             SizedBox(
-              height: 48.0,
+              height: 0.0,
             ),
             ReusableButton(
               buttonColor: Colors.lightBlueAccent,
