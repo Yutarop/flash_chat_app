@@ -1,3 +1,4 @@
+import 'package:flash_chat_app/screens/opeaning_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_app/screens/welcome_screen.dart';
 import 'package:flash_chat_app/screens/login_screen.dart';
@@ -15,8 +16,9 @@ class FlashChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: OpeaningScreen.id,
       routes: {
+        OpeaningScreen.id: (context) => OpeaningScreen(),
         ChatScreen.id: (context) => ChatScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
