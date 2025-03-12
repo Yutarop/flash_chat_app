@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 24.0,
                       ),
                       ReusableButton(
-                          buttonColor: Colors.blueAccent,
+                          buttonColor: Colors.greenAccent,
                           buttonFunction: () async {
                             setState(() {
                               showSpinner = true;

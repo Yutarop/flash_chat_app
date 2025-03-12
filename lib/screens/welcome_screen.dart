@@ -80,12 +80,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
               height: 0.0,
             ),
             ReusableButton(
-              buttonColor: Colors.lightBlueAccent,
+              buttonColor: Colors.lightGreenAccent,
               buttonFunction: (){Navigator.pushNamed(context, LoginScreen.id);},
               buttonText: 'Log In',
             ),
             ReusableButton(
-              buttonColor: Colors.blueAccent,
+              buttonColor: Colors.greenAccent,
               buttonFunction: (){Navigator.pushNamed(context, RegistrationScreen.id);},
               buttonText: 'Register',
             ),

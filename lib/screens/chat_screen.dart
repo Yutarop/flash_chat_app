@@ -58,8 +58,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 Navigator.pop(context);
               }),
         ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        title: Text('Chat'),
+        backgroundColor: Color(0xFF89AC46),
       ),
       body: SafeArea(
         child: Column(
@@ -115,7 +115,7 @@ class MessageStream extends StatelessWidget {
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlueAccent,
+              backgroundColor: Colors.lightGreenAccent,
             ),
           );
         }
@@ -179,14 +179,14 @@ class MessageBubble extends StatelessWidget {
               Material(
                 elevation: 5.0,
                 borderRadius: isMe ? kCustomBorderRadius.copyWith(topRight: Radius.circular(0)) : kCustomBorderRadius.copyWith(topLeft: Radius.circular(0)),
-                color: isMe ? Colors.lightBlueAccent : Colors.white,
+                color: isMe ? Color(0xFF89AC46) : Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                   child: Text(
                       '$text',
                     style: TextStyle(
                       fontSize: 15.0,
-                      color: isMe ? Colors.white : Colors.black,
+                      color: Colors.black,
                     ),
                   ),
                 ),

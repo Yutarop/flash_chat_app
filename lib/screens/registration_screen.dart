@@ -75,7 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         height: 24.0,
                       ),
                       ReusableButton(
-                          buttonColor: Colors.blueAccent,
+                          buttonColor: Colors.greenAccent,
                           buttonFunction: () async{
                             setState(() {
                               showSpinner = true;
