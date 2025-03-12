@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 final _firestore = FirebaseFirestore.instance;
 late User loggedInUser;
@@ -86,6 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
+                        'timestamp': FieldValue.serverTimestamp(),
                       });
                     },
                     child: Text(
@@ -108,8 +110,8 @@ class MessageStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
-      builder: (context, snapshot){
+      stream: _firestore.collection('messages').orderBy('timestamp', descending: true).snapshots(),
+      builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(
@@ -117,15 +119,19 @@ class MessageStream extends StatelessWidget {
             ),
           );
         }
-        final messages = snapshot.data!.docs.reversed;
+        final messages = snapshot.data!.docs;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
           final messageText = message['text'];
           final messageSender = message['sender'];
+          final sentTime = message['timestamp'];
+          DateTime dateTime = sentTime != null ? sentTime.toDate().toLocal() : DateTime.now();
+          String formattedDate = DateFormat('HH:mm').format(dateTime);
           final currentUser = loggedInUser.email;
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,
+            time: formattedDate,
             isMe: currentUser == messageSender,
           );
           messageBubbles.add(messageBubble);
@@ -147,8 +153,9 @@ class MessageBubble extends StatelessWidget {
   final String sender;
   final String text;
   final bool isMe;
+  final String time;
 
-  MessageBubble({required this.sender,required this.text, required this.isMe});
+  MessageBubble({required this.sender,required this.text, required this.time, required this.isMe});
 
   @override
   Widget build(BuildContext context) {
@@ -164,31 +171,55 @@ class MessageBubble extends StatelessWidget {
               color: Colors.black54,
             ),
           ),
-          Material(
-            elevation: 5.0,
-            borderRadius: isMe ? BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              bottomLeft: Radius.circular(30.0),
-              bottomRight: Radius.circular(30.0),
-            ) : BorderRadius.only(
-              topRight: Radius.circular(30.0),
-              bottomLeft: Radius.circular(30.0),
-              bottomRight: Radius.circular(30.0),
-            ),
-            color: isMe ? Colors.lightBlueAccent : Colors.white,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                  '$text',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: isMe ? Colors.white : Colors.black,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+            children: [
+              timeDisplayLeft(time, isMe),
+              Material(
+                elevation: 5.0,
+                borderRadius: isMe ? kCustomBorderRadius.copyWith(topRight: Radius.circular(0)) : kCustomBorderRadius.copyWith(topLeft: Radius.circular(0)),
+                color: isMe ? Colors.lightBlueAccent : Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  child: Text(
+                      '$text',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: isMe ? Colors.white : Colors.black,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              timeDisplayRight(time, isMe),
+            ],
           ),
         ],
       ),
+    );
+  }
+}
+
+Widget timeDisplayLeft(String time, bool isMe) {
+  if (isMe) {
+    return Text(
+      time,
+      style: kTimeTextStyle,
+    );
+  } else {
+    return SizedBox(
+    );
+  }
+}
+
+Widget timeDisplayRight(String time, bool isMe) {
+  if (!isMe) {
+    return Text(
+      time,
+      style: kTimeTextStyle,
+    );
+  } else {
+    return SizedBox(
     );
   }
 }

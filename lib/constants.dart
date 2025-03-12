@@ -36,3 +36,14 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kCustomBorderRadius = BorderRadius.only(
+  topRight: Radius.circular(30.0),
+  topLeft: Radius.circular(30.0),
+  bottomLeft: Radius.circular(30.0),
+  bottomRight: Radius.circular(30.0),
+);
+
+const kTimeTextStyle = TextStyle(
+  fontSize: 10,
+);
